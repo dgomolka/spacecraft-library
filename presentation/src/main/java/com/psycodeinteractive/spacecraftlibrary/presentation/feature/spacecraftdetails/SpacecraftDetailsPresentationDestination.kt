@@ -1,0 +1,5 @@
+package com.psycodeinteractive.spacecraftlibrary.presentation.feature.spacecraftdetails
+
+import com.psycodeinteractive.spacecraftlibrary.presentation.navigation.PresentationDestination
+
+data class SpacecraftDetailsPresentationDestination(val spacecraftId: Int) : PresentationDestination

@@ -1,0 +1,5 @@
+package com.psycodeinteractive.spacecraftlibrary.presentation.destination
+
+import com.psycodeinteractive.spacecraftlibrary.presentation.navigation.PresentationDestination
+
+object BackDestination : PresentationDestination

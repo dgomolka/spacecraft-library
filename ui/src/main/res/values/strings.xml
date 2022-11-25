@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Spacecraft Library</string>
+    <string name="no_items">No items</string>
+    <string name="spacecraft_details">Spacecraft details</string>
+    <string name="number">No.</string>
+    <string name="in_use">In use</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="agency">Agency</string>
+    <string name="close">Close</string>
+    <string name="unknown_exception_title">Unknown error</string>
+    <string name="unknown_exception_description">Unknown error occured. Please try again or restart the app</string>
+</resources>

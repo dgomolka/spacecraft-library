@@ -1,0 +1,3 @@
+package com.psycodeinteractive.spacecraftlibrary.presentation
+
+interface Event

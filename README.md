@@ -1,5 +1,5 @@
 ### Spacecraft Library
-Spacecraft library presenting info from [The Space Devs](https://thespacedevs.com/)
+Pure Android project presenting info from [The Space Devs](https://thespacedevs.com/)
 
 ### Tech stack
 - Clean architecture

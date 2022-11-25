@@ -16,9 +16,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -100,6 +99,16 @@ private fun SpacecraftListContent(
     viewModel: SpacecraftListViewModel,
     onSpacecraftClick: (id: Int) -> Unit
 ) {
+    val isLoading = when (val appendLoadState = spacecraftList.loadState.append) {
+        is NotLoading -> false
+        Loading -> true
+        is Error -> {
+            LaunchedEffect(spacecraftList) {
+                viewModel.onError(appendLoadState.error.message.toString())
+            }
+            false
+        }
+    }
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -115,10 +124,8 @@ private fun SpacecraftListContent(
                 item.id
             },
             lazyListScope = {
-                when (val appendLoadState = spacecraftList.loadState.append) {
-                    is NotLoading -> Unit
-                    Loading -> item { LoadingIndicator() }
-                    is Error -> viewModel.onError(appendLoadState.error.message.toString())
+                if (isLoading) {
+                    item { LoadingIndicator() }
                 }
             }
         ) { index, item ->
@@ -157,6 +164,7 @@ private fun SpacecraftListItem(
             Row(
                 modifier = Modifier.align(Start)
             ) {
+                val isInUse = spacecraft.spacecraftConfig.isInUse
                 Column {
                     Text(
                         text = "${R.string.number.value} ${index + 1}",
@@ -173,12 +181,12 @@ private fun SpacecraftListItem(
                     LabeledChip(
                         labelText = R.string.in_use.value,
                         smaller = true,
-                        valueText = if (spacecraft.spacecraftConfig.isInUse) {
+                        valueText = if (isInUse) {
                             R.string.yes.value
                         } else {
                             R.string.no.value
                         },
-                        chipColorDark = if (spacecraft.spacecraftConfig.isInUse) {
+                        chipColorDark = if (isInUse) {
                             yesGreenColor
                         } else {
                             noRedColor

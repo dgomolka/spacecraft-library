@@ -31,11 +31,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 inline fun <reified VM : BaseViewModel<VS, E>, reified VS : ViewState, reified E : Event> Screen(
-    providedViewModel: VM? = null,
+    viewModel: VM = hiltViewModel(),
     presentationToUiExceptionMapper: PresentationToUiMapper<PresentationException, UiException>,
     crossinline children: @Composable (viewModel: VM, viewState: VS, lifecycleScope: LifecycleCoroutineScope) -> Unit
 ) {
-    val viewModel: VM = providedViewModel ?: hiltViewModel()
     val viewState by viewModel.collectViewState()
     OnLifecycle(minActiveState = CREATED) {
         viewModel.onViewCreated()
